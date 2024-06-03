@@ -35,7 +35,7 @@ Our method gradually enables effective control by weak conditions, thereby achie
    pip install -r requirements.txt
    ```
 
-   If you got error regards insightface then run, you can find solution [here](https://www.youtube.com/watch?v=vCCVxGtCyho).
+   If you got error regards insightface, you may find solution [here](https://www.youtube.com/watch?v=vCCVxGtCyho).
 
    - first, you should download .whl file [here](https://github.com/Gourieff/Assets/tree/main/Insightface)
    - then, install it by `.\python_embeded\python.exe -m pip install --no-deps --target=\your_path_of\python_embeded\Lib\site-packages [path-to-wheel]`
