@@ -1,0 +1,420 @@
+{
+  "last_node_id": 14,
+  "last_link_id": 21,
+  "nodes": [
+    {
+      "id": 4,
+      "type": "V_Express_Loader",
+      "pos": [
+        443,
+        14
+      ],
+      "size": {
+        "0": 320.79998779296875,
+        "1": 26
+      },
+      "flags": {},
+      "order": 4,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "vexpress_model_path",
+          "type": "STRING_INPUT",
+          "link": 1
+        }
+      ],
+      "outputs": [
+        {
+          "name": "v_express_pipeline",
+          "type": "V_EXPRESS_PIPELINE",
+          "links": [
+            11
+          ],
+          "shape": 3,
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "V_Express_Loader"
+      }
+    },
+    {
+      "id": 6,
+      "type": "Load_Audio_Path",
+      "pos": [
+        -30,
+        138
+      ],
+      "size": {
+        "0": 315,
+        "1": 82
+      },
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "outputs": [
+        {
+          "name": "AUDIO_PATH",
+          "type": "AUDIO_PATH",
+          "links": [
+            13
+          ],
+          "shape": 3,
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "Load_Audio_Path"
+      },
+      "widgets_values": [
+        "aud.mp3",
+        "Audio",
+        {
+          "hidden": false,
+          "paused": false,
+          "params": {}
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "type": "Load_Image_Path",
+      "pos": [
+        -32,
+        368
+      ],
+      "size": {
+        "0": 315,
+        "1": 294
+      },
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "outputs": [
+        {
+          "name": "IMAGE_PATH",
+          "type": "IMAGE_PATH",
+          "links": [
+            15
+          ],
+          "shape": 3,
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "Load_Image_Path"
+      },
+      "widgets_values": [
+        "ref.jpg",
+        "image"
+      ]
+    },
+    {
+      "id": 1,
+      "type": "INTConstant",
+      "pos": [
+        -34,
+        734
+      ],
+      "size": {
+        "0": 315,
+        "1": 58
+      },
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "outputs": [
+        {
+          "name": "image_size",
+          "type": "INT_INPUT",
+          "links": [
+            16,
+            18
+          ],
+          "shape": 3,
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "INTConstant"
+      },
+      "widgets_values": [
+        512
+      ]
+    },
+    {
+      "id": 2,
+      "type": "StringConstant",
+      "pos": [
+        -34,
+        35
+      ],
+      "size": {
+        "0": 315,
+        "1": 58
+      },
+      "flags": {},
+      "order": 3,
+      "mode": 0,
+      "outputs": [
+        {
+          "name": "STRING_INPUT",
+          "type": "STRING_INPUT",
+          "links": [
+            1,
+            12,
+            19
+          ],
+          "shape": 3,
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "StringConstant"
+      },
+      "widgets_values": [
+        "./model_ckpts"
+      ]
+    },
+    {
+      "id": 13,
+      "type": "Load_Kps_Path_From_Video",
+      "pos": [
+        496,
+        361
+      ],
+      "size": {
+        "0": 367.79998779296875,
+        "1": 455.79998779296875
+      },
+      "flags": {},
+      "order": 5,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "vexpress_model_path",
+          "type": "STRING_INPUT",
+          "link": 19
+        },
+        {
+          "name": "image_size",
+          "type": "INT_INPUT",
+          "link": 18
+        }
+      ],
+      "outputs": [
+        {
+          "name": "VKPS_PATH",
+          "type": "VKPS_PATH",
+          "links": [
+            20
+          ],
+          "shape": 3,
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "Load_Kps_Path_From_Video"
+      },
+      "widgets_values": [
+        "00000gt.mp4",
+        "Video",
+        {
+          "hidden": false,
+          "paused": false,
+          "params": {}
+        }
+      ]
+    },
+    {
+      "id": 14,
+      "type": "Preview_Video",
+      "pos": [
+        1592.7578125,
+        45.02734375
+      ],
+      "size": {
+        "0": 210,
+        "1": 26
+      },
+      "flags": {},
+      "order": 7,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "video",
+          "type": "STRING_INPUT",
+          "link": 21
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "Preview_Video"
+      },
+      "widgets_values": [
+        null,
+        null
+      ]
+    },
+    {
+      "id": 10,
+      "type": "V_Express_Sampler",
+      "pos": [
+        1046,
+        13
+      ],
+      "size": {
+        "0": 393,
+        "1": 422
+      },
+      "flags": {},
+      "order": 6,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "v_express_pipeline",
+          "type": "V_EXPRESS_PIPELINE",
+          "link": 11
+        },
+        {
+          "name": "vexpress_model_path",
+          "type": "STRING_INPUT",
+          "link": 12
+        },
+        {
+          "name": "audio_path",
+          "type": "AUDIO_PATH",
+          "link": 13
+        },
+        {
+          "name": "kps_path",
+          "type": "VKPS_PATH",
+          "link": 20
+        },
+        {
+          "name": "ref_image_path",
+          "type": "IMAGE_PATH",
+          "link": 15
+        },
+        {
+          "name": "image_size",
+          "type": "INT_INPUT",
+          "link": 16
+        }
+      ],
+      "outputs": [
+        {
+          "name": "output_path",
+          "type": "STRING_INPUT",
+          "links": [
+            21
+          ],
+          "shape": 3,
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "V_Express_Sampler"
+      },
+      "widgets_values": [
+        "E:\\ComfyUI_windows_portable\\ComfyUI\\output\\test2.mp4",
+        "fix_face",
+        30,
+        42,
+        "fixed",
+        20,
+        3.5,
+        12,
+        1,
+        4,
+        0.95,
+        3
+      ]
+    }
+  ],
+  "links": [
+    [
+      1,
+      2,
+      0,
+      4,
+      0,
+      "STRING_INPUT"
+    ],
+    [
+      11,
+      4,
+      0,
+      10,
+      0,
+      "V_EXPRESS_PIPELINE"
+    ],
+    [
+      12,
+      2,
+      0,
+      10,
+      1,
+      "STRING_INPUT"
+    ],
+    [
+      13,
+      6,
+      0,
+      10,
+      2,
+      "AUDIO_PATH"
+    ],
+    [
+      15,
+      8,
+      0,
+      10,
+      4,
+      "IMAGE_PATH"
+    ],
+    [
+      16,
+      1,
+      0,
+      10,
+      5,
+      "INT_INPUT"
+    ],
+    [
+      18,
+      1,
+      0,
+      13,
+      1,
+      "INT_INPUT"
+    ],
+    [
+      19,
+      2,
+      0,
+      13,
+      0,
+      "STRING_INPUT"
+    ],
+    [
+      20,
+      13,
+      0,
+      10,
+      3,
+      "VKPS_PATH"
+    ],
+    [
+      21,
+      10,
+      0,
+      14,
+      0,
+      "STRING_INPUT"
+    ]
+  ],
+  "groups": [],
+  "config": {},
+  "extra": {},
+  "version": 0.4
+}
