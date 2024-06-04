@@ -78,7 +78,7 @@ def get_all_model_path(vexpress_model_path):
     return model_dict
 
 
-class INTConstant:
+class VEINTConstant:
     @classmethod
     def INPUT_TYPES(s):
         return {"required": {
@@ -94,7 +94,7 @@ class INTConstant:
         return (image_size,)
 
 
-class StringConstant:
+class VEStringConstant:
     @classmethod
     def INPUT_TYPES(cls):
         return {
@@ -524,7 +524,7 @@ class Load_Video_Path:
         return (video_path,)
 
 
-class Preview_Video:
+class VEPreview_Video:
     @classmethod
     def INPUT_TYPES(s):
         return {"required":{
@@ -560,9 +560,9 @@ NODE_CLASS_MAPPINGS = {
     "Load_Kps_Path_From_Video": Load_Kps_Path_From_Video,
     "Load_Image_Path": Load_Image_Path,
     "Load_Video_Path": Load_Video_Path,
-    "INTConstant": INTConstant,
-    "StringConstant": StringConstant,
-    "Preview_Video": Preview_Video,
+    "VEINTConstant": VEINTConstant,
+    "VEStringConstant": VEStringConstant,
+    "VEPreview_Video": VEPreview_Video,
 }
 
 # A dictionary that contains the friendly/humanly readable titles for the nodes
@@ -575,7 +575,7 @@ NODE_DISPLAY_NAME_MAPPINGS = {
     "Load_Kps_Path_From_Video": "Load V-Kps Path From Video",
     "Load_Image_Path": "Load Reference Image Path",
     "Load_Video_Path": "Load Video Path",
-    "INTConstant": "Set Image Size",
-    "StringConstant": "Set V-Express Model Path",
-    "Preview_Video": "Preview Output Video",
+    "VEINTConstant": "Set Image Size",
+    "VEStringConstant": "Set V-Express Model Path",
+    "VEPreview_Video": "Preview Output Video",
 }

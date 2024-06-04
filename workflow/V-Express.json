@@ -1,6 +1,6 @@
 {
-  "last_node_id": 14,
-  "last_link_id": 21,
+  "last_node_id": 20,
+  "last_link_id": 33,
   "nodes": [
     {
       "id": 4,
@@ -20,7 +20,7 @@
         {
           "name": "vexpress_model_path",
           "type": "STRING_INPUT",
-          "link": 1
+          "link": 28
         }
       ],
       "outputs": [
@@ -110,73 +110,6 @@
       ]
     },
     {
-      "id": 1,
-      "type": "INTConstant",
-      "pos": [
-        -34,
-        734
-      ],
-      "size": {
-        "0": 315,
-        "1": 58
-      },
-      "flags": {},
-      "order": 2,
-      "mode": 0,
-      "outputs": [
-        {
-          "name": "image_size",
-          "type": "INT_INPUT",
-          "links": [
-            16,
-            18
-          ],
-          "shape": 3,
-          "slot_index": 0
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "INTConstant"
-      },
-      "widgets_values": [
-        512
-      ]
-    },
-    {
-      "id": 2,
-      "type": "StringConstant",
-      "pos": [
-        -34,
-        35
-      ],
-      "size": {
-        "0": 315,
-        "1": 58
-      },
-      "flags": {},
-      "order": 3,
-      "mode": 0,
-      "outputs": [
-        {
-          "name": "STRING_INPUT",
-          "type": "STRING_INPUT",
-          "links": [
-            1,
-            12,
-            19
-          ],
-          "shape": 3,
-          "slot_index": 0
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "StringConstant"
-      },
-      "widgets_values": [
-        "./model_ckpts"
-      ]
-    },
-    {
       "id": 13,
       "type": "Load_Kps_Path_From_Video",
       "pos": [
@@ -194,12 +127,12 @@
         {
           "name": "vexpress_model_path",
           "type": "STRING_INPUT",
-          "link": 19
+          "link": 29
         },
         {
           "name": "image_size",
           "type": "INT_INPUT",
-          "link": 18
+          "link": 31
         }
       ],
       "outputs": [
@@ -227,32 +160,70 @@
       ]
     },
     {
-      "id": 14,
-      "type": "Preview_Video",
+      "id": 18,
+      "type": "VEStringConstant",
       "pos": [
-        1592.7578125,
-        45.02734375
+        -18,
+        -50
       ],
       "size": {
-        "0": 210,
-        "1": 26
+        "0": 315,
+        "1": 58
       },
       "flags": {},
-      "order": 7,
+      "order": 2,
       "mode": 0,
-      "inputs": [
+      "outputs": [
         {
-          "name": "video",
+          "name": "STRING_INPUT",
           "type": "STRING_INPUT",
-          "link": 21
+          "links": [
+            28,
+            29,
+            30
+          ],
+          "shape": 3,
+          "slot_index": 0
         }
       ],
       "properties": {
-        "Node name for S&R": "Preview_Video"
+        "Node name for S&R": "VEStringConstant"
       },
       "widgets_values": [
-        null,
-        null
+        "./model_ckpts"
+      ]
+    },
+    {
+      "id": 19,
+      "type": "VEINTConstant",
+      "pos": [
+        -43,
+        773
+      ],
+      "size": {
+        "0": 315,
+        "1": 58
+      },
+      "flags": {},
+      "order": 3,
+      "mode": 0,
+      "outputs": [
+        {
+          "name": "image_size",
+          "type": "INT_INPUT",
+          "links": [
+            31,
+            32
+          ],
+          "shape": 3,
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "VEINTConstant"
+      },
+      "widgets_values": [
+        512
       ]
     },
     {
@@ -278,7 +249,7 @@
         {
           "name": "vexpress_model_path",
           "type": "STRING_INPUT",
-          "link": 12
+          "link": 30
         },
         {
           "name": "audio_path",
@@ -298,7 +269,7 @@
         {
           "name": "image_size",
           "type": "INT_INPUT",
-          "link": 16
+          "link": 32
         }
       ],
       "outputs": [
@@ -306,7 +277,7 @@
           "name": "output_path",
           "type": "STRING_INPUT",
           "links": [
-            21
+            33
           ],
           "shape": 3,
           "slot_index": 0
@@ -316,7 +287,7 @@
         "Node name for S&R": "V_Express_Sampler"
       },
       "widgets_values": [
-        "E:\\ComfyUI_windows_portable\\ComfyUI\\output\\test2.mp4",
+        "E:\\ComfyUI_windows_portable\\ComfyUI\\output\\test3.mp4",
         "fix_face",
         30,
         42,
@@ -329,17 +300,37 @@
         0.95,
         3
       ]
+    },
+    {
+      "id": 20,
+      "type": "VEPreview_Video",
+      "pos": [
+        1527,
+        33
+      ],
+      "size": {
+        "0": 210,
+        "1": 26
+      },
+      "flags": {},
+      "order": 7,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "video",
+          "type": "STRING_INPUT",
+          "link": 33
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "VEPreview_Video"
+      },
+      "widgets_values": [
+        null
+      ]
     }
   ],
   "links": [
-    [
-      1,
-      2,
-      0,
-      4,
-      0,
-      "STRING_INPUT"
-    ],
     [
       11,
       4,
@@ -347,14 +338,6 @@
       10,
       0,
       "V_EXPRESS_PIPELINE"
-    ],
-    [
-      12,
-      2,
-      0,
-      10,
-      1,
-      "STRING_INPUT"
     ],
     [
       13,
@@ -373,30 +356,6 @@
       "IMAGE_PATH"
     ],
     [
-      16,
-      1,
-      0,
-      10,
-      5,
-      "INT_INPUT"
-    ],
-    [
-      18,
-      1,
-      0,
-      13,
-      1,
-      "INT_INPUT"
-    ],
-    [
-      19,
-      2,
-      0,
-      13,
-      0,
-      "STRING_INPUT"
-    ],
-    [
       20,
       13,
       0,
@@ -405,10 +364,50 @@
       "VKPS_PATH"
     ],
     [
-      21,
+      28,
+      18,
+      0,
+      4,
+      0,
+      "STRING_INPUT"
+    ],
+    [
+      29,
+      18,
+      0,
+      13,
+      0,
+      "STRING_INPUT"
+    ],
+    [
+      30,
+      18,
+      0,
+      10,
+      1,
+      "STRING_INPUT"
+    ],
+    [
+      31,
+      19,
+      0,
+      13,
+      1,
+      "INT_INPUT"
+    ],
+    [
+      32,
+      19,
+      0,
+      10,
+      5,
+      "INT_INPUT"
+    ],
+    [
+      33,
       10,
       0,
-      14,
+      20,
       0,
       "STRING_INPUT"
     ]

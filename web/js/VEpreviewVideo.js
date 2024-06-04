@@ -69,7 +69,7 @@ function previewVideo(node, file, type) {
 app.registerExtension({
   name: "ComfyUI-V-Express.VideoPreviewer",
   async beforeRegisterNodeDef(nodeType, nodeData, app) {
-    if (nodeData?.name == "Preview_Video") {
+    if (nodeData?.name == "VEPreview_Video") {
       nodeType.prototype.onExecuted = function (data) {
         previewVideo(this, data.video[0], data.video[1]);
       };
