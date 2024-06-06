@@ -220,7 +220,7 @@ class V_Express_Sampler:
         video_length = int(duration * fps)
         print(f'The corresponding video length is {video_length}.')
 
-        if kps_path != "":
+        if kps_path != "" and retarget_strategy != 'fix_face':
             assert os.path.exists(kps_path), f'{kps_path} does not exist'
             kps_sequence = torch.tensor(torch.load(kps_path))  # [len, 3, 2]
             print(f'The original length of kps sequence is {kps_sequence.shape[0]}.')
