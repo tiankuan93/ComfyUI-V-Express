@@ -35,6 +35,8 @@ Our method gradually enables effective control by weak conditions, thereby achie
    pip install -r requirements.txt
    ```
 
+   If you are using ComfyUI_windows_portable , you should use `.\python_embeded\python.exe -m pip` to replace `pip` for installation.
+
    If you got error regards insightface, you may find solution [here](https://www.youtube.com/watch?v=vCCVxGtCyho).
 
    - first, you should download .whl file [here](https://github.com/Gourieff/Assets/tree/main/Insightface)
