@@ -56,7 +56,8 @@ Our method gradually enables effective control by weak conditions, thereby achie
    |-- wav2vec2-base-960h
    ```
 
-3. You should put the files in input directory into the Your ComfyUI Input root directory\ComfyUI\input\.
+3. You should put the files in input directory into the Your ComfyUI Input root `directory\ComfyUI\input\`.
+4. You need to set `output_path` as `directory\ComfyUI\output\xxx.mp4`, otherwise the output video will not be displayed in the ComfyUI.
 
 ## Acknowledgements
 
