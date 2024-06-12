@@ -45,7 +45,7 @@ Our method gradually enables effective control by weak conditions, thereby achie
 2. Download V-Express models and other needed models:
 
    - [model_ckpts](https://huggingface.co/tk93/V-Express)
-   - You need to replace the **model_ckpts** folder with the downloaded **V-Express/model_ckpts**. The final **model_ckpts** folder is as follows:
+   - You need to replace the **model_ckpts** folder with the downloaded **V-Express/model_ckpts**. Then you should download and put all `.bin` model to `model_ckpts/v-express` directory, which includes `audio_projection.bin`, `denoising_unet.bin`, `motion_module.bin`, `reference_net.bin`, and `v_kps_guider.bin`. The final **model_ckpts** folder is as follows:
 
    ```text
    ./model_ckpts/

@@ -58,11 +58,22 @@ def get_all_model_path(vexpress_model_path):
     audio_encoder_path = os.path.join(vexpress_model_path, 'wav2vec2-base-960h')
     insightface_model_path = os.path.join(vexpress_model_path, 'insightface_models')
 
-    denoising_unet_path = os.path.join(vexpress_model_path, 'v-express/denoising_unet.pth')
-    reference_net_path = os.path.join(vexpress_model_path, 'v-express/reference_net.pth')
-    v_kps_guider_path = os.path.join(vexpress_model_path, 'v-express/v_kps_guider.pth')
-    audio_projection_path = os.path.join(vexpress_model_path, 'v-express/audio_projection.pth')
-    motion_module_path = os.path.join(vexpress_model_path, 'v-express/motion_module.pth')
+    denoising_unet_path = os.path.join(vexpress_model_path, 'v-express/denoising_unet.bin')
+    reference_net_path = os.path.join(vexpress_model_path, 'v-express/reference_net.bin')
+    v_kps_guider_path = os.path.join(vexpress_model_path, 'v-express/v_kps_guider.bin')
+    audio_projection_path = os.path.join(vexpress_model_path, 'v-express/audio_projection.bin')
+    motion_module_path = os.path.join(vexpress_model_path, 'v-express/motion_module.bin')
+
+    if not os.path.isfile(denoising_unet_path):
+        denoising_unet_path = os.path.join(vexpress_model_path, 'v-express/denoising_unet.pth')
+    if not os.path.isfile(reference_net_path):
+        reference_net_path = os.path.join(vexpress_model_path, 'v-express/reference_net.pth')
+    if not os.path.isfile(v_kps_guider_path):
+        v_kps_guider_path = os.path.join(vexpress_model_path, 'v-express/v_kps_guider.pth')
+    if not os.path.isfile(audio_projection_path):
+        audio_projection_path = os.path.join(vexpress_model_path, 'v-express/audio_projection.pth')
+    if not os.path.isfile(motion_module_path):
+        motion_module_path = os.path.join(vexpress_model_path, 'v-express/motion_module.pth')
 
     model_dict = {
         "unet_config_path": unet_config_path,
