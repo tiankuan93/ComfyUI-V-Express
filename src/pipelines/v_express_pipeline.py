@@ -505,8 +505,8 @@ class VExpressPipeline(DiffusionPipeline):
             return_dict=False,
         )
         reference_control_reader.update(reference_control_writer, do_classifier_free_guidance)
-        if save_gpu_memory:
-            del self.reference_net
+        # if save_gpu_memory:
+        #     del self.reference_net
         torch.cuda.empty_cache()
 
         latents = self.prepare_latents(
