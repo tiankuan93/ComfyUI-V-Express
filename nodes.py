@@ -13,6 +13,7 @@ from diffusers.utils.torch_utils import randn_tensor
 from diffusers import AutoencoderKL
 from insightface.app import FaceAnalysis
 from transformers import Wav2Vec2Model, Wav2Vec2Processor
+import accelerate
 
 import folder_paths
 import folder_paths as comfy_paths
@@ -196,7 +197,13 @@ class V_Express_Sampler:
         context_overlap,
         reference_attention_weight,
         audio_attention_weight,
+        save_gpu_memory=True,
+        do_multi_devices_inference=False,
     ):
+        start_time = time.time()
+
+        accelerator = None
+
         reference_image_path = ref_image_path
         model_dict = get_all_model_path(vexpress_model_path)
 
@@ -215,6 +222,9 @@ class V_Express_Sampler:
         reference_image_for_kps = cv2.imread(reference_image_path)
         reference_image_for_kps = cv2.resize(reference_image_for_kps, (image_size, image_size))
         reference_kps = app.get(reference_image_for_kps)[0].kps[:3]
+        if save_gpu_memory:
+            del app
+        torch.cuda.empty_cache()
 
         _, audio_waveform, meta_info = torchvision.io.read_video(audio_path, pts_unit='sec')
         audio_sampling_rate = meta_info['audio_fps']
@@ -228,13 +238,21 @@ class V_Express_Sampler:
         audio_waveform = audio_waveform.mean(dim=0)
 
         duration = audio_waveform.shape[0] / STANDARD_AUDIO_SAMPLING_RATE
-        video_length = int(duration * fps)
+        init_video_length = int(duration * fps)
+        num_contexts = np.around((init_video_length + context_overlap) / context_frames)
+        video_length = int(num_contexts * context_frames - context_overlap)
+        fps = video_length / duration
         print(f'The corresponding video length is {video_length}.')
 
-        if kps_path != "" and retarget_strategy != 'fix_face':
+        kps_sequence = None
+        if kps_path != "":
             assert os.path.exists(kps_path), f'{kps_path} does not exist'
             kps_sequence = torch.tensor(torch.load(kps_path))  # [len, 3, 2]
             print(f'The original length of kps sequence is {kps_sequence.shape[0]}.')
+
+            if kps_sequence.shape[0] > video_length:
+                kps_sequence = kps_sequence[:video_length, :, :]
+
             kps_sequence = torch.nn.functional.interpolate(kps_sequence.permute(1, 2, 0), size=video_length, mode='linear')
             kps_sequence = kps_sequence.permute(2, 0, 1)
             print(f'The interpolated length of kps sequence is {kps_sequence.shape[0]}.')
@@ -252,22 +270,11 @@ class V_Express_Sampler:
 
         kps_images = []
         for i in range(video_length):
-            kps_image = np.zeros_like(reference_image_for_kps)
-            kps_image = draw_kps_image(kps_image, kps_sequence[i])
+            kps_image = draw_kps_image(image_size, image_size, kps_sequence[i])
             kps_images.append(Image.fromarray(kps_image))
 
         generator = torch.manual_seed(seed)
-        vae_scale_factor = 8
-        latent_height = image_size // vae_scale_factor
-        latent_width = image_size // vae_scale_factor
-        dtype = WEIGHT_DTYPE
-        device = DEVICE
-
-        latent_shape = (1, 4, video_length, latent_height, latent_width)
-        vae_latents = randn_tensor(latent_shape, generator=generator, device=device, dtype=dtype)
-
-        video_latents = v_express_pipeline(
-            vae_latents=vae_latents,
+        video_tensor = v_express_pipeline(
             reference_image=reference_image,
             kps_images=kps_images,
             audio_waveform=audio_waveform,
@@ -277,20 +284,22 @@ class V_Express_Sampler:
             num_inference_steps=num_inference_steps,
             guidance_scale=guidance_scale,
             context_frames=context_frames,
-            context_stride=context_stride,
             context_overlap=context_overlap,
             reference_attention_weight=reference_attention_weight,
             audio_attention_weight=audio_attention_weight,
             num_pad_audio_frames=NUM_PAD_AUDIO_FRAMES,
             generator=generator,
-        ).video_latents
+            do_multi_devices_inference=do_multi_devices_inference,
+            save_gpu_memory=save_gpu_memory,
+        )
 
-        video_tensor = v_express_pipeline.decode_latents(video_latents)
-        if isinstance(video_tensor, np.ndarray):
-            video_tensor = torch.from_numpy(video_tensor)
-
-        save_video(video_tensor, audio_path, output_path, fps)
-        print(f'The generated video has been saved at {output_path}.')
+        if accelerator is None or accelerator.is_main_process:
+            save_video(video_tensor, audio_path, output_path, DEVICE, fps)
+            consumed_time = time.time() - start_time
+            generation_fps = video_tensor.shape[2] / consumed_time
+            print(f'The generated video has been saved at {output_path}. '
+                f'The generation time is {consumed_time:.1f} seconds. '
+                f'The generation FPS is {generation_fps:.2f}.')
 
         return (output_path, )
 
