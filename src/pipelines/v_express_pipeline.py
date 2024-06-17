@@ -468,8 +468,8 @@ class VExpressPipeline(DiffusionPipeline):
 
         reference_image_latents = self.prepare_reference_latent(reference_image, height, width)
         kps_feature = self.prepare_kps_feature(kps_images, height, width, do_classifier_free_guidance)
-        if save_gpu_memory:
-            del self.v_kps_guider
+        # if save_gpu_memory:
+        #     del self.v_kps_guider
         torch.cuda.empty_cache()
         audio_embeddings = self.prepare_audio_embeddings(
             audio_waveform,
@@ -477,8 +477,8 @@ class VExpressPipeline(DiffusionPipeline):
             num_pad_audio_frames,
             do_classifier_free_guidance,
         )
-        if save_gpu_memory:
-            del self.audio_processor, self.audio_encoder, self.audio_projection
+        # if save_gpu_memory:
+        #     del self.audio_processor, self.audio_encoder, self.audio_projection
         torch.cuda.empty_cache()
 
         context_scheduler = get_context_scheduler(context_schedule)
